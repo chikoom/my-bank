@@ -11,8 +11,10 @@ router.get('/', (req, res) => {
   res.send()
 })
 
-router.post('/', (req, res) => {
-  res.send()
+router.post('/transaction', async (req, res) => {
+  const transaction = new Transaction(req.body)
+  const savedTransaction = await transaction.save()
+  res.send(savedTransaction)
 })
 
 router.delete('/', (req, res) => {
