@@ -1,24 +1,27 @@
 const express = require('express')
 const Transaction = require('../models/Transaction')
 
-const router = express.Router()
+const apiRouter = express.Router()
 
-router.get('/sanity', (req, res) => {
+apiRouter.get('/sanity', (req, res) => {
   res.send('OK')
 })
 
-router.get('/', (req, res) => {
-  res.send()
+apiRouter.get('/transactions', async (req, res) => {
+  const results = await Transaction.find({})
+  res.send(results)
 })
 
-router.post('/transaction', async (req, res) => {
+apiRouter.post('/transaction', async (req, res) => {
   const transaction = new Transaction(req.body)
   const savedTransaction = await transaction.save()
   res.send(savedTransaction)
 })
 
-router.delete('/', (req, res) => {
-  res.send()
+apiRouter.delete('/transaction/:id', async (req, res) => {
+  const { id } = req.params
+  const deletedTransaction = await Transaction.findByIdAndDelete(id)
+  res.send(deletedTransaction)
 })
 
-module.exports = router
+module.exports = apiRouter
