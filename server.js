@@ -1,7 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const apiRouter = require('./routes/api')
-const authRouter = require('./routes/auth')
+const apiRouter = require('./server/routes/api')
+const authRouter = require('./server/routes/auth')
+const path = require('path')
 const cors = require('cors')
 require('dotenv').config()
 
@@ -24,6 +25,8 @@ app.use(cors(corsOptions))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'build')))
+
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
@@ -37,6 +40,10 @@ app.use(function (req, res, next) {
 
 app.use('/api', apiRouter)
 app.use('/auth', authRouter)
+
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 
 app.listen(PORT, function () {
   console.log(`SERVER UP! :: ${PORT}`)

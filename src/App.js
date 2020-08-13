@@ -7,7 +7,7 @@ import Navbar from './components/Navbar'
 import Breakdown from './components/Breakdown'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-const API_URL = 'http://localhost:3001/api'
+const API_URL = '/api'
 
 class App extends Component {
   constructor() {
