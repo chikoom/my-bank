@@ -7,6 +7,7 @@ class Navbar extends Component {
     super()
     this.state = {
       drawerOpen: false,
+      userMenuOpen: false,
     }
   }
   toggleDrawer = () => {
@@ -27,7 +28,14 @@ class Navbar extends Component {
           <div className='nav-logo'>
             <div className='logo'>SPEND!</div>
           </div>
-          <div className='nav-user-login'>Login</div>
+          {(this.props.currentUser && (
+            <div className='nav-user-container'>
+              <div class='nav-username'>{this.props.currentUser.username}</div>
+              <div className='nav-usermenu'>
+                <button onClick={this.props.logoutUser}>Logout</button>
+              </div>
+            </div>
+          )) || <div className='nav-user-login'>Login</div>}
         </nav>
         <Drawer isOpen={this.state.drawerOpen} />
       </React.Fragment>

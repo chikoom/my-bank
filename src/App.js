@@ -1,20 +1,48 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Operations from './components/Operations'
 import TransactionsList from './components/TransactionsList'
 import Landing from './components/Landing'
 import Navbar from './components/Navbar'
 import Breakdown from './components/Breakdown'
+import Login from './components/Login'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-const API_URL = '/api'
+import authService from './services/auth.service'
+const API_URL = 'http://localhost:3001/api'
+const AUTH_URL = 'http://localhost:3001/auth'
+// const API_URL = '/api'
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       transactions: [],
+      currentUser: authService.getCurrentUser(),
+      returnToHome: false,
     }
+  }
+  loginUser = async (username, password) => {
+    const loginResult = await authService.login(username, password)
+    this.setState({
+      currentUser: loginResult,
+    })
+    return loginResult
+  }
+  signupUser = async (username, email, password) => {
+    const signupResult = await authService.register(username, password, email)
+    this.setState({
+      currentUser: signupResult,
+    })
+    return signupResult
+  }
+  logoutUser = () => {
+    authService.logout()
+    this.setState({
+      currentUser: null,
+      returnToHome: true,
+    })
+    return true
   }
   componentDidMount = async () => {
     const allTransactions = await this.getAllTransactions()
@@ -64,10 +92,21 @@ class App extends Component {
   render() {
     return (
       <Router>
+        {this.state.returnToHome && <Redirect to='/' />}
         <div className='app'>
-          <Navbar />
+          <Navbar
+            logoutUser={this.logoutUser}
+            currentUser={this.state.currentUser}
+          />
           <Route exact path='/' render={() => <Landing />} />
           <Route exact path='/breakdown' render={() => <Breakdown />} />
+          <Route
+            exact
+            path='/login'
+            render={() => (
+              <Login signupUser={this.signupUser} loginUser={this.loginUser} />
+            )}
+          />
           <Route
             exact
             path='/transactions'

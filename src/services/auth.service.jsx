@@ -11,17 +11,23 @@ class AuthService {
     if (response.data.accessToken) {
       localStorage.setItem('spendUser', JSON.stringify(response.data))
     }
+    console.log('login response', response)
     return response.data
   }
   logout = () => {
     localStorage.removeItem('spendUser')
   }
   register = async (username, password, email) => {
-    return await axios.post(API_URL + 'signup', {
+    const response = await axios.post(API_URL + 'signup', {
       username,
       email,
       password,
     })
+    if (response.data.accessToken) {
+      localStorage.setItem('spendUser', JSON.stringify(response.data))
+    }
+    console.log('register response', response)
+    return response.data
   }
   getCurrentUser = () => {
     return JSON.parse(localStorage.getItem('spendUser'))

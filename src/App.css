@@ -155,6 +155,18 @@ nav {
 /** ******************** **/
 /** *****  BUTTONS  **** **/
 /** ******************** **/
+.general-input {
+  box-shadow: var(--primary-shadow);
+  width: 95%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+/** ******************** **/
+/** *****  BUTTONS  **** **/
+/** ******************** **/
 .app-button {
   background: none;
   cursor: pointer;

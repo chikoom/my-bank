@@ -32,7 +32,16 @@ authRotuer.post(
     })
     try {
       const createdUser = await user.save()
-      res.send({ createdUser, message: 'User was registered successfully!' })
+      const token = jwt.sign({ id: createdUser._id }, SECRET, {
+        expiresIn: 86400, // 24 hours
+      })
+      res.status(200).send({
+        id: createdUser._id,
+        username: createdUser.username,
+        email: createdUser.email,
+        expenses: createdUser.expenses,
+        accessToken: token,
+      })
     } catch (err) {
       res.status(500).send({ message: err })
       return
@@ -41,7 +50,7 @@ authRotuer.post(
 )
 
 authRotuer.post('/signin', [], async (req, res) => {
-  const { username, email, password } = req.body
+  const { username, password } = req.body
   try {
     const requestedUser = await User.findOne({ username })
       .populate('expenses')
