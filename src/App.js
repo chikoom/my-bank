@@ -6,9 +6,14 @@ import Landing from './components/Landing'
 import Navbar from './components/Navbar'
 import Breakdown from './components/Breakdown'
 import Login from './components/Login'
+import Wave from './components/Wave'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import authService from './services/auth.service'
+import UserService from './services/user.service'
+import authHeader from './services/auth-header'
+import axios from 'axios'
+import MainUser from './components/MainUser'
 const API_URL = 'http://localhost:3001/api'
 const AUTH_URL = 'http://localhost:3001/auth'
 // const API_URL = '/api'
@@ -45,8 +50,22 @@ class App extends Component {
     return true
   }
   componentDidMount = async () => {
-    const allTransactions = await this.getAllTransactions()
+    await this.getUserSummery()
+    const allTransactions = await this.getAllUserTransactions()
     this.setState({ transactions: allTransactions })
+  }
+  getUserSummery = async () => {
+    const user = JSON.parse(localStorage.getItem('spendUser'))
+    if (user && user.accessToken) {
+      //console.log('usr found', user.accessToken)
+      const response = await axios.get(`${API_URL}/summery/user/${user.id}`, {
+        headers: {
+          'x-access-token': user.accessToken,
+          'Content-Type': 'application/json',
+        },
+      })
+      //console.log(response.data)
+    }
   }
   getAllTransactions = async () => {
     const requestOptions = {
@@ -57,18 +76,53 @@ class App extends Component {
     const data = await response.json()
     return data
   }
-  postNewTransaction = async transactionObject => {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(transactionObject),
+  getAllUserTransactions = async () => {
+    //const results = await UserService.getUserTransactions()
+    const user = JSON.parse(localStorage.getItem('spendUser'))
+    if (user && user.accessToken) {
+      //console.log('usr found', user.accessToken)
+      const response = await axios.get(
+        `${API_URL}/transactions/user/${user.id}`,
+        {
+          headers: {
+            'x-access-token': user.accessToken,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      //console.log(response.data)
+
+      //const currentTransactions = [...this.state.transactions]
+      //currentTransactions.push(data)
+      //this.setState({ transactions: currentTransactions })
+      //return this.state.transactions
+      return response.data
     }
-    const response = await fetch(`${API_URL}/transaction/`, requestOptions)
-    const data = await response.json()
-    const currentTransactions = [...this.state.transactions]
-    currentTransactions.push(data)
-    this.setState({ transactions: currentTransactions })
-    return this.state.transactions
+
+    //return data
+  }
+  postNewTransaction = async transactionObject => {
+    const user = JSON.parse(localStorage.getItem('spendUser'))
+
+    if (user && user.accessToken) {
+      //console.log('usr found', user.accessToken)
+      const response = await axios.post(
+        `${API_URL}/transaction/user/${user.id}`,
+        JSON.stringify(transactionObject),
+        {
+          headers: {
+            'x-access-token': user.accessToken,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      //console.log(response.data)
+      debugger
+      //const currentTransactions = [...this.state.transactions]
+      //currentTransactions.push(data)
+      //this.setState({ transactions: currentTransactions })
+      //return this.state.transactions
+    }
   }
   deleteTransaction = async transactionID => {
     const requestOptions = {
@@ -81,8 +135,8 @@ class App extends Component {
     )
     const data = await response.json()
     const currentTransactions = [...this.state.transactions]
-    console.log('App -> currentTransactions', currentTransactions)
-    console.log('App -> data', data)
+    //console.log('App -> currentTransactions', currentTransactions)
+    //console.log('App -> data', data)
     const filteredTransactions = currentTransactions.filter(
       trans => trans._id !== data._id
     )
@@ -98,7 +152,10 @@ class App extends Component {
             logoutUser={this.logoutUser}
             currentUser={this.state.currentUser}
           />
-          <Route exact path='/' render={() => <Landing />} />
+          {(this.state.currentUser && (
+            <Route exact path='/' render={() => <MainUser />} />
+          )) || <Route exact path='/' render={() => <Landing />} />}
+
           <Route exact path='/breakdown' render={() => <Breakdown />} />
           <Route
             exact
