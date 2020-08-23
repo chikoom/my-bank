@@ -20,7 +20,7 @@ mongoose.connect(
 const app = express()
 
 var corsOptions = {
-  origin: 'http://localhost:3002',
+  origin: 'http://localhost:3005',
 }
 app.use(cors(corsOptions))
 

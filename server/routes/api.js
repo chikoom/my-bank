@@ -2,6 +2,7 @@ const express = require('express')
 const authJwt = require('./middlewares/authJwt')
 const Transaction = require('../models/Transaction')
 const User = require('../models/User')
+const userQueries = require('./queries/UserQueries')
 const mongoose = require('mongoose')
 
 const apiRouter = express.Router()
@@ -52,86 +53,19 @@ apiRouter.get(
   }
 )
 
-apiRouter.get('/user/summary/:id', authJwt.verifyToken, async (req, res) => {
-  const { id } = req.params
-  console.log(id)
-
-  const results = await User.aggregate([
-    { $match: { _id: mongoose.Types.ObjectId(id) } },
-    {
-      $lookup: {
-        from: 'transactions',
-        localField: 'expenses',
-        foreignField: '_id',
-        as: 'lookup-data',
-      },
-    },
-    {
-      $unwind: {
-        path: '$lookup-data',
-      },
-    },
-    {
-      $group: {
-        _id: id,
-        budget: { $first: '$budget' },
-        username: { $first: '$username' },
-        positive: {
-          $sum: {
-            $cond: [
-              { $gt: ['$lookup-data.amount', 0] },
-              '$lookup-data.amount',
-              0,
-            ],
-          },
-        },
-        negative: {
-          $sum: {
-            $cond: [
-              { $lt: ['$lookup-data.amount', 0] },
-              '$lookup-data.amount',
-              0,
-            ],
-          },
-        },
-      },
-    },
-  ])
-  res.send(results[0])
-})
-
 apiRouter.get('/sanity', (req, res) => {
   res.send('OK')
 })
 
+apiRouter.get('/user/summary/:id', authJwt.verifyToken, async (req, res) => {
+  const { id } = req.params
+  const results = await userQueries.userSummaryById(id)
+  res.send(results[0])
+})
+
 apiRouter.get('/user/categories/:id', authJwt.verifyToken, async (req, res) => {
   const { id } = req.params
-  console.log(id)
-
-  const results = await User.aggregate([
-    { $match: { _id: mongoose.Types.ObjectId(id) } },
-    {
-      $lookup: {
-        from: 'transactions',
-        localField: 'expenses',
-        foreignField: '_id',
-        as: 'lookup-data',
-      },
-    },
-    {
-      $unwind: {
-        path: '$lookup-data',
-      },
-    },
-    {
-      $group: {
-        _id: id,
-        categories: { $addToSet: '$lookup-data.category' },
-        username: { $first: '$username' },
-      },
-    },
-  ])
-  console.log(results)
+  const results = await userQueries.userCategoriesById(id)
   res.send(results[0].categories)
 })
 
@@ -140,31 +74,7 @@ apiRouter.get(
   authJwt.verifyToken,
   async (req, res) => {
     const { id } = req.params
-    console.log(id)
-
-    const results = await User.aggregate([
-      { $match: { _id: mongoose.Types.ObjectId(id) } },
-      {
-        $lookup: {
-          from: 'transactions',
-          localField: 'expenses',
-          foreignField: '_id',
-          as: 'lookup-data',
-        },
-      },
-      {
-        $unwind: {
-          path: '$lookup-data',
-        },
-      },
-      {
-        $group: {
-          _id: '$lookup-data.category',
-          transactions: { $push: '$lookup-data' },
-        },
-      },
-    ])
-    console.log(results)
+    const results = await userQueries.userTransactionsByCategory(id)
     res.send(results)
   }
 )
@@ -174,37 +84,10 @@ apiRouter.get(
   authJwt.verifyToken,
   async (req, res) => {
     const { id, categoryName } = req.params
-    console.log(id, categoryName)
-
-    const results = await User.aggregate([
-      { $match: { _id: mongoose.Types.ObjectId(id) } },
-      {
-        $lookup: {
-          from: 'transactions',
-          localField: 'expenses',
-          foreignField: '_id',
-          as: 'lookup-data',
-        },
-      },
-      {
-        $unwind: {
-          path: '$lookup-data',
-        },
-      },
-      { $match: { 'lookup-data.category': categoryName } },
-      {
-        $group: {
-          _id: '$lookup-data.category',
-          summary: {
-            $sum: '$lookup-data.amount',
-          },
-          transactions: {
-            $push: '$lookup-data',
-          },
-        },
-      },
-    ])
-    console.log(results)
+    const results = await userQueries.userTransactionsByCategoryName(
+      id,
+      categoryName
+    )
     res.send(results[0])
   }
 )

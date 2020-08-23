@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-
 import Wave from './Wave'
+
 class Landing extends Component {
   render() {
     return (
       <React.Fragment>
-        <div id='landing-wrapper'>
+        <div id='landing-wrapper' className='light-gradient'>
           <div id='landing-top'>
             <div id='landing-inner'>
               <h2 className='landing-logo'>SPEND!</h2>

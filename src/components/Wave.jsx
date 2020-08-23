@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 class Wave extends Component {
   render() {
     return (
-      <div className='wave-bg'>
+      <div className='wave-bg '>
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
           <path
             fill='#0099ff'

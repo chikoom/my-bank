@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import userService from '../services/user.service'
 
-class MainUser extends Component {
-  constructor() {
+class UserSummary extends Component {
+  constructor(props) {
     super()
     this.state = {
       balance: 0,
@@ -10,33 +10,28 @@ class MainUser extends Component {
       expence: 0,
     }
   }
-  componentDidMount = async () => {
-    this.getUserSummery()
-  }
-  getUserSummery = async () => {
-    const user = JSON.parse(localStorage.getItem('spendUser'))
-    if (user && user.accessToken) {
-      //console.log('user found', user.accessToken)
-      const response = await userService.getUserSummary(user)
-      console.log(response.data)
-    }
-  }
+
   render() {
+    const { userSummary } = this.props
+    // console.log(this.props)
+
     return (
       <div className='user-summary'>
         <div className='user-summary-total'>
-          <div>BALANCE:</div>
-          <div>{}</div>
+          <div className='user-summary-header'>BALANCE:</div>
+          <div className='user-summary-amount'>{userSummary.balance}</div>
         </div>
         <div className='user-summary-income'>
-          <div>INCOME:</div>
+          <div className='user-summary-header'>INCOME:</div>
+          <div className='user-summary-amount'>{userSummary.income}</div>
         </div>
         <div className='user-summary-expences'>
-          <div>EXPENSE:</div>
+          <div className='user-summary-header'>EXPENSE:</div>
+          <div className='user-summary-amount'>{userSummary.expence}</div>
         </div>
       </div>
     )
   }
 }
 
-export default MainUser
+export default UserSummary

@@ -1,10 +1,9 @@
 import axios from 'axios'
-
-const API_URL = 'http://localhost:3000/auth/'
+import { AUTH_URL } from './constants'
 
 class AuthService {
   login = async (username, password) => {
-    const response = await axios.post(API_URL + 'signin', {
+    const response = await axios.post(AUTH_URL + 'signin', {
       username,
       password,
     })
@@ -18,7 +17,7 @@ class AuthService {
     localStorage.removeItem('spendUser')
   }
   register = async (username, password, email) => {
-    const response = await axios.post(API_URL + 'signup', {
+    const response = await axios.post(AUTH_URL + 'signup', {
       username,
       email,
       password,

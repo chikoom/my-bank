@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 :root {
   --primary-background: #1e34c6;
-  --secondary-background: #45d9fa;
+  --secondary-background: #153b61;
   --primary-color: #5ac5a8;
   --secondary-light: #bedfd6;
   --primary-shadow: 0px 1px 5px rgba(0, 0, 0, 0.367);
@@ -20,6 +20,23 @@
   --nagative-color: rgb(236, 214, 214);
 }
 
+.dark-gradient {
+  background: rgb(9, 9, 121);
+  background: linear-gradient(
+    180deg,
+    rgba(9, 9, 121, 1) 11%,
+    rgba(134, 19, 191, 1) 100%
+  );
+}
+.light-gradient {
+  background: rgb(31, 255, 226);
+  background: linear-gradient(
+    180deg,
+    rgba(31, 255, 226, 1) 0%,
+    rgba(34, 34, 149, 1) 100%
+  );
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -34,13 +51,14 @@ a {
   text-decoration: none;
 }
 .app {
+  overflow: hidden;
 }
 /** ******************** **/
 /** *****  LANDING  **** **/
 /** ******************** **/
 #landing-wrapper {
   min-height: 100vh;
-  background-color: var(--primary-background);
+
   position: relative;
   z-index: 11;
 }
@@ -72,13 +90,13 @@ a {
 /** ******************** **/
 .wave-bg {
   width: 105%;
-  margin: -10px auto 0 auto;
+  margin: -10px auto 0 -2%;
   z-index: -1;
   position: relative;
 }
 .wave-bg path {
   fill: var(--secondary-background);
-  stroke: #333;
+  stroke: #c93792;
   stroke-width: 5px;
   position: relative;
 }
@@ -172,6 +190,57 @@ nav {
 }
 .negative {
   background-color: var(--nagative-color);
+}
+
+/** ******************** **/
+/** *** USER SUMMARY *** **/
+/** ******************** **/
+
+.user-summary {
+  display: grid;
+  grid-template-areas:
+    'ba ba'
+    'in ex';
+  color: var(--secondary-light);
+  grid-gap: 30px;
+}
+
+.user-summary-total {
+  grid-area: ba;
+}
+.user-summary-total .user-summary-header {
+  font-size: 20px;
+  font-weight: 100;
+}
+.user-summary-total .user-summary-amount {
+  font-size: 60px;
+  font-weight: 200;
+}
+.user-summary-income {
+  grid-area: in;
+  color: rgb(195, 233, 174);
+}
+.user-summary-expences {
+  grid-area: ex;
+  color: rgb(235, 128, 128);
+}
+.user-summary-income .user-summary-header,
+.user-summary-expences .user-summary-header {
+  font-size: 20px;
+  font-weight: 100;
+}
+.user-summary-income .user-summary-amount,
+.user-summary-expences .user-summary-amount {
+  font-size: 40px;
+  font-weight: 200;
+}
+
+/** ******************** **/
+/** **  TRANSACTIONS  ** **/
+/** ******************** **/
+
+.chart-container {
+  height: 500px;
 }
 
 /** ******************** **/
