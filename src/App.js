@@ -12,7 +12,9 @@ import authService from './services/auth.service'
 import axios from 'axios'
 import MainUser from './components/MainUser'
 import { API_URL } from './services/constants'
+import { observer } from 'mobx-react'
 
+@observer
 class App extends Component {
   constructor() {
     super()
