@@ -2,8 +2,8 @@
 :root {
   --primary-background: #1e34c6;
   --secondary-background: #153b61;
-  --primary-color: #5ac5a8;
-  --secondary-light: #bedfd6;
+  --primary-color: #2248a0;
+  --secondary-light: #428fdc;
   --primary-shadow: 0px 1px 5px rgba(0, 0, 0, 0.367);
   --button-color: #fff;
   --text-primary-color: #333;
@@ -16,8 +16,8 @@
   --text-primaryWeight: 200;
   --text-smallSize: 13px;
   --text-smallWeight: 200;
-  --positive-color: rgb(226, 236, 218);
-  --nagative-color: rgb(236, 214, 214);
+  --positive-color: rgb(186, 233, 148);
+  --nagative-color: rgb(231, 139, 139);
 }
 
 .dark-gradient {
@@ -36,7 +36,9 @@
     rgba(34, 34, 149, 1) 100%
   );
 }
-
+.small {
+  font-size: 15px;
+}
 * {
   margin: 0;
   padding: 0;
@@ -53,12 +55,15 @@ a {
 .app {
   overflow: hidden;
 }
+.app-wrapper {
+  position: relative;
+}
 /** ******************** **/
 /** *****  LANDING  **** **/
 /** ******************** **/
 #landing-wrapper {
   min-height: 100vh;
-
+  padding-bottom: 150px;
   position: relative;
   z-index: 11;
 }
@@ -141,7 +146,7 @@ nav {
   position: absolute;
   top: 77px;
   left: 0px;
-  z-index: 99999;
+  z-index: 99999999;
 }
 .drawer-button {
   width: 100%;
@@ -168,7 +173,13 @@ nav {
 /** **  TRANSACTIONS  ** **/
 /** ******************** **/
 
+.transactions-table-wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 .transactions-table {
+  width: 100%;
   margin: 0 auto;
   text-align: left;
 }
@@ -186,10 +197,10 @@ nav {
   padding: 10px;
 }
 .positive {
-  background-color: var(--positive-color);
+  color: var(--positive-color);
 }
 .negative {
-  background-color: var(--nagative-color);
+  color: var(--nagative-color);
 }
 
 /** ******************** **/
@@ -200,9 +211,10 @@ nav {
   display: grid;
   grid-template-areas:
     'ba ba'
+    'tl tl'
     'in ex';
   color: var(--secondary-light);
-  grid-gap: 30px;
+  grid-gap: 20px;
 }
 
 .user-summary-total {
@@ -219,14 +231,18 @@ nav {
 .user-summary-income {
   grid-area: in;
   color: rgb(195, 233, 174);
+  margin-right: 20px;
+  text-align: center;
 }
 .user-summary-expences {
   grid-area: ex;
   color: rgb(235, 128, 128);
+  margin-left: 20px;
+  text-align: center;
 }
 .user-summary-income .user-summary-header,
 .user-summary-expences .user-summary-header {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 100;
 }
 .user-summary-income .user-summary-amount,
@@ -234,15 +250,73 @@ nav {
   font-size: 40px;
   font-weight: 200;
 }
+.user-summary-title {
+  grid-area: tl;
+  font-size: 20px;
+  font-weight: 100;
+}
 
 /** ******************** **/
-/** **  TRANSACTIONS  ** **/
+/** ******  CHART  ********/
 /** ******************** **/
 
 .chart-container {
   height: 500px;
 }
 
+.chart-container svg {
+  cursor: pointer;
+}
+
+.chart-category-results {
+  width: 300px;
+  margin: 0 auto;
+  background-color: #fff;
+  font-size: 12px;
+  padding: 10px;
+  box-shadow: 1px 1px 5px rgb(13, 8, 74);
+}
+
+.chart-category-results td {
+  color: rgb(186, 62, 62);
+}
+
+.chart-category-results td:last-child {
+  display: none;
+}
+
+/** ******************** **/
+/** ***  DATEPICKER  *** **/
+/** ******************** **/
+
+.datepicker-wrapper {
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  text-align: center;
+  margin-top: 20px;
+}
+.datepicker {
+  font-size: 13px;
+}
+.datepicker label {
+  font-size: 10px;
+}
+.datepicker input {
+  margin-left: 10px;
+  width: 140px;
+  background-color: none;
+}
+
+::-webkit-datetime-edit {
+  padding: 1em;
+}
+
+::-webkit-datetime-edit-text {
+  padding: 0 0.3em;
+}
+::-webkit-calendar-picker-indicator {
+  margin-left: -100px;
+}
 /** ******************** **/
 /** ***  OPERATIONS  *** **/
 /** ******************** **/
@@ -303,4 +377,28 @@ nav {
   color: var(--secondary-light);
   padding: 10px 30px;
   margin: 20px auto;
+}
+/** ******************** **/
+/** *****  LOADER   **** **/
+/** ******************** **/
+
+.loader-wrapper {
+  z-index: 99999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.loader-inner {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  text-align: center;
+  margin-top: 250px;
+}
+.loading-text {
+  color: #f8b062;
+  font-weight: 200;
 }

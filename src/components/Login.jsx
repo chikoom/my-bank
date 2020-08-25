@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Route, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import validator from 'validator'
 
 class Login extends Component {

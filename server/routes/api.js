@@ -48,7 +48,9 @@ apiRouter.get(
   authJwt.verifyToken,
   async (req, res) => {
     const { id } = req.params
-    const results = await User.findById(id).populate('expenses')
+    const { from, until } = req.query
+    //const results = await User.findById(id).populate('expenses')
+    const results = await userQueries.userTransactions(id, from, until)
     res.send(results.expenses)
   }
 )
@@ -59,9 +61,21 @@ apiRouter.get('/sanity', (req, res) => {
 
 apiRouter.get('/user/summary/:id', authJwt.verifyToken, async (req, res) => {
   const { id } = req.params
-  const results = await userQueries.userSummaryById(id)
+  const { from, until } = req.query
+  const results = await userQueries.userSummaryById(id, from, until)
   res.send(results[0])
 })
+
+apiRouter.get(
+  '/user/categories/summary/:id',
+  authJwt.verifyToken,
+  async (req, res) => {
+    const { id } = req.params
+    const { from, until } = req.query
+    const results = await userQueries.userSummaryByCategory(id, from, until)
+    res.send(results)
+  }
+)
 
 apiRouter.get('/user/categories/:id', authJwt.verifyToken, async (req, res) => {
   const { id } = req.params

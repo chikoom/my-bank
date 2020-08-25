@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import { BrowserRouter as Route, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+import userService from '../services/user.service'
+
 class Operations extends Component {
   constructor() {
     super()
@@ -30,7 +32,7 @@ class Operations extends Component {
       category: this.state.categoryVal,
       date: this.state.dateVal,
     }
-    let res = await this.props.postNewTransaction(submission)
+    let res = await userService.postNewTransaction(submission)
     this.setState({
       redirect: true,
     })

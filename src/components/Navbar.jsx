@@ -10,6 +10,7 @@ class Navbar extends Component {
       userMenuOpen: false,
     }
   }
+
   toggleDrawer = () => {
     this.setState({
       drawerOpen: !this.state.drawerOpen,
@@ -30,14 +31,19 @@ class Navbar extends Component {
           </div>
           {(this.props.currentUser && (
             <div className='nav-user-container'>
-              <div class='nav-username'>{this.props.currentUser.username}</div>
+              <div className='nav-username'>
+                {this.props.currentUser.username}
+              </div>
               <div className='nav-usermenu'>
                 <button onClick={this.props.logoutUser}>Logout</button>
               </div>
             </div>
           )) || <div className='nav-user-login'>Login</div>}
         </nav>
-        <Drawer isOpen={this.state.drawerOpen} />
+        <Drawer
+          toggleDrawer={this.toggleDrawer}
+          isOpen={this.state.drawerOpen}
+        />
       </React.Fragment>
     )
   }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faBars,
   faUniversity,
   faWallet,
   faChartArea,
@@ -18,7 +17,10 @@ class DrawerButton extends Component {
   render() {
     return (
       <Link to={this.props.link}>
-        <button className='nav-menu-button drawer-button'>
+        <button
+          onClick={this.props.toggleDrawer}
+          className='nav-menu-button drawer-button'
+        >
           <FontAwesomeIcon
             className='drawer-button-icon'
             icon={iconsMap[this.props.icon]}

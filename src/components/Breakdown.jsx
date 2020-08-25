@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 class Breakdown extends Component {
   render() {
-    return 'h'
+    return 'breakdown'
   }
 }
 

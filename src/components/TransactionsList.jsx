@@ -1,15 +1,44 @@
 import React, { Component } from 'react'
 import Transction from './Transction'
 import { DatePicker } from './DatePicker'
-class TransactionsList extends Component {
-  render() {
-    const { transactions } = this.props
+import { getThisMonthTimeFrame } from '../services/utils'
+import userService from '../services/user.service'
 
+class TransactionsList extends Component {
+  constructor(props) {
+    super()
+    this.state = {
+      transactions: [],
+    }
+    props.setLoader(true)
+  }
+  componentDidMount = async () => {
+    const transactions = await userService.getUserTransactions(
+      getThisMonthTimeFrame()
+    )
+    this.setState(
+      {
+        transactions,
+      },
+      () => {
+        this.props.setLoader(false)
+      }
+    )
+  }
+  updateTransactions = async dateArray => {
+    const transactions = await userService.getUserTransactions(dateArray)
+    console.log('TR', transactions)
+    this.setState({
+      transactions,
+    })
+  }
+  render() {
     return (
-      <React.Fragment>
-        <div>
-          <DatePicker />
-        </div>
+      <div className='transactions-table-wrapper'>
+        <DatePicker
+          timeFrame={getThisMonthTimeFrame()}
+          updateTransactions={this.updateTransactions}
+        />
         <table className='transactions-table'>
           <thead>
             <tr>
@@ -21,16 +50,16 @@ class TransactionsList extends Component {
             </tr>
           </thead>
           <tbody>
-            {transactions.map(trans => (
+            {this.state.transactions.map(trans => (
               <Transction
-                deleteTransaction={this.props.deleteTransaction}
-                key={trans.id}
+                key={trans._id}
                 details={trans}
+                updateTransactions={this.componentDidMount}
               />
             ))}
           </tbody>
         </table>
-      </React.Fragment>
+      </div>
     )
   }
 }
