@@ -373,9 +373,6 @@ nav {
   box-shadow: 1px 1px 5px rgb(13, 8, 74);
 }
 
-.chart-category-results td {
-}
-
 .chart-category-results td:last-child {
   display: none;
 }
