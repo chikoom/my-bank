@@ -10,7 +10,6 @@ class AuthService {
     if (response.data.accessToken) {
       localStorage.setItem('spendUser', JSON.stringify(response.data))
     }
-    console.log('login response', response)
     return response.data
   }
   logout = () => {
@@ -25,7 +24,6 @@ class AuthService {
     if (response.data.accessToken) {
       localStorage.setItem('spendUser', JSON.stringify(response.data))
     }
-    console.log('register response', response)
     return response.data
   }
   getCurrentUser = () => {

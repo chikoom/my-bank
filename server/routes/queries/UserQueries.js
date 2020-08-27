@@ -1,6 +1,5 @@
 const User = require('../../models/User')
 const mongoose = require('mongoose')
-const moment = require('moment')
 
 const transactionLookup = {
   from: 'transactions',
@@ -152,6 +151,25 @@ const userSummaryById = async (id, from = 0, until = new Date('3000')) => {
   ])
 }
 
+const userSummaryByDay = async (id, from = 0, until = new Date('3000')) => {
+  from = new Date(from)
+  until = new Date(until)
+  return await User.aggregate([
+    { $match: { _id: mongoose.Types.ObjectId(id) } },
+    { $lookup: transactionLookup },
+    { $unwind: { path: '$lookup-data' } },
+    { $match: { 'lookup-data.amount': { $lte: 0 } } },
+    {
+      $group: {
+        _id: '$lookup-data.date',
+        summary: {
+          $sum: '$lookup-data.amount',
+        },
+      },
+    },
+  ])
+}
+
 module.exports = {
   userSummaryById,
   userCategoriesById,
@@ -159,4 +177,5 @@ module.exports = {
   userTransactionsByCategoryName,
   userSummaryByCategory,
   userTransactions,
+  userSummaryByDay,
 }

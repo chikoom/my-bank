@@ -11,6 +11,7 @@ class Operations extends Component {
       amountVal: 0,
       vendorVal: '',
       categoryVal: '',
+      categoryList: [],
       dateVal: '',
       redirect: false,
     }
@@ -20,6 +21,14 @@ class Operations extends Component {
       [`${e.target.name}Val`]: e.target.value,
     })
   }
+
+  componentDidMount = async () => {
+    const categoryList = await userService.getUserCategoriesList()
+    this.setState({
+      categoryList,
+    })
+  }
+
   handleSubmitTransaction = async e => {
     e.preventDefault()
     let amountValue =
@@ -36,7 +45,6 @@ class Operations extends Component {
     this.setState({
       redirect: true,
     })
-    console.log(res)
   }
   render() {
     return (
@@ -80,11 +88,9 @@ class Operations extends Component {
               onChange={this.handleInputChange}
             />
             <datalist id='categories'>
-              <option value='Default' />
-              <option value='Fun' />
-              <option value='Appartment' />
-              <option value='Business' />
-              <option value='Salary' />
+              {this.state.categoryList.map(category => (
+                <option key={category} value={category} />
+              ))}
             </datalist>
           </div>
           <div className='input-wrapper'>

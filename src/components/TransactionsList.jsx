@@ -10,7 +10,6 @@ class TransactionsList extends Component {
     this.state = {
       transactions: [],
     }
-    props.setLoader(true)
   }
   componentDidMount = async () => {
     const transactions = await userService.getUserTransactions(
@@ -27,7 +26,6 @@ class TransactionsList extends Component {
   }
   updateTransactions = async dateArray => {
     const transactions = await userService.getUserTransactions(dateArray)
-    console.log('TR', transactions)
     this.setState({
       transactions,
     })

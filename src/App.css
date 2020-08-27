@@ -3,7 +3,7 @@
   --primary-background: #1e34c6;
   --secondary-background: #153b61;
   --primary-color: #2248a0;
-  --secondary-light: #428fdc;
+  --secondary-light: #80b1e2;
   --primary-shadow: 0px 1px 5px rgba(0, 0, 0, 0.367);
   --button-color: #fff;
   --text-primary-color: #333;
@@ -17,7 +17,7 @@
   --text-smallSize: 13px;
   --text-smallWeight: 200;
   --positive-color: rgb(186, 233, 148);
-  --nagative-color: rgb(231, 139, 139);
+  --negative-color: rgb(213, 101, 101);
 }
 
 .dark-gradient {
@@ -30,11 +30,7 @@
 }
 .light-gradient {
   background: rgb(31, 255, 226);
-  background: linear-gradient(
-    180deg,
-    rgba(31, 255, 226, 1) 0%,
-    rgba(34, 34, 149, 1) 100%
-  );
+  background: linear-gradient(180deg, rgb(1, 2, 15) 0%, rgb(10, 10, 49) 100%);
 }
 .small {
   font-size: 15px;
@@ -48,12 +44,18 @@
 }
 body {
   overflow-x: hidden;
+  min-height: 100vh;
+}
+#root {
+  min-height: 100vh;
 }
 a {
   text-decoration: none;
 }
 .app {
   overflow: hidden;
+  position: relative;
+  min-height: 100vh;
 }
 .app-wrapper {
   position: relative;
@@ -82,11 +84,11 @@ a {
 }
 .landing-logo {
   font-size: 80px;
-  color: var(--text-primary-color);
-  border-bottom: 5px solid var(--text-primary-color);
+  color: var(--text-light);
+  border-bottom: 5px solid var(--text-light);
 }
 .landing-slogen {
-  color: var(--text-primary-color);
+  color: var(--text-light);
   font-size: 18px;
   font-weight: 200;
 }
@@ -112,14 +114,32 @@ a {
 nav {
   background-color: var(--primary-color);
   display: grid;
-  grid-template-columns: 1fr 9fr 2fr;
+  grid-template-columns: 1fr 10fr 1fr;
   padding: 20px;
   box-shadow: var(--primary-shadow);
 }
 .nav-menu-button {
   color: var(--button-color);
   font-size: 20px;
+  outline: none;
+  text-decoration: none;
 }
+.nav-button {
+  color: var(--button-color);
+  font-size: 20px;
+  outline: none;
+  transition: 0.5s;
+  background: none;
+  cursor: pointer;
+}
+.nav-button:focus {
+  outline: none;
+  border: none;
+}
+.nav-button-open {
+  transform: rotate(90deg);
+}
+
 .nav-logo {
   text-align: center;
   color: var(--text-light);
@@ -133,14 +153,64 @@ nav {
   align-content: center;
   text-align: right;
 }
+.nav-user-container {
+  text-align: center;
+}
+.nav-username {
+  color: var(--text-light);
+  font-size: 17px;
+}
 
+.nav-usermenu button {
+  background: none;
+  text-align: center;
+  color: var(--secondary-light);
+}
+.nav-usermenu button:hover {
+  text-decoration: underline;
+}
+.nav-usermenu button:focus {
+  text-decoration: underline;
+  outline: none;
+  border: none;
+}
+.nac-user-container {
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  grid-gap: 10px;
+  align-content: center;
+  justify-content: center;
+}
+/** ******************** **/
+/** *****  LOGIN   ***** **/
+/** ******************** **/
+.login-form {
+  max-width: 500px;
+  margin: 50px auto;
+}
+.login-form-buttons {
+  margin: 20px auto;
+  text-align: center;
+}
+.login-form-buttons button {
+  margin: 0 10px;
+  text-align: center;
+}
+.signup-login-link {
+  background-color: var(--primary-color);
+  color: var(--secondary-light);
+  padding: 10px 20px;
+}
+.signup-login-link:hover {
+  transform: scale(1.05);
+}
 /** ******************** **/
 /** *****  DRAWER  ***** **/
 /** ******************** **/
 
 .drawer {
   width: 250px;
-  height: 100vh;
+  height: 100%;
   background-color: var(--secondary-light);
   transition: ease-in-out 0.5s;
   position: absolute;
@@ -158,6 +228,12 @@ nav {
   cursor: pointer;
   padding: 15px 0;
   background: none;
+}
+.drawer-button:hover {
+  background-color: var(--primary-color);
+}
+.drawer-button:focus {
+  outline: none;
 }
 .button-drawer-text {
   border-left: 2px solid var(--text-light);
@@ -196,11 +272,25 @@ nav {
 .transactions-table th {
   padding: 10px;
 }
+.transactions-table tr td:first-child {
+  min-width: 100px;
+}
+.transactions-table tr td:last-child {
+  width: 50px;
+}
 .positive {
   color: var(--positive-color);
 }
 .negative {
-  color: var(--nagative-color);
+  color: var(--negative-color);
+}
+.positive-bg {
+  background-color: var(--positive-color);
+  color: #000;
+}
+.negative-bg {
+  background-color: var(--negative-color);
+  color: #fff;
 }
 
 /** ******************** **/
@@ -262,8 +352,14 @@ nav {
 
 .chart-container {
   height: 500px;
+  max-width: 500px;
+  margin: 0 auto;
 }
-
+.chart-container-header {
+  color: var(--secondary-light);
+  font-weight: 200;
+  text-align: center;
+}
 .chart-container svg {
   cursor: pointer;
 }
@@ -278,7 +374,6 @@ nav {
 }
 
 .chart-category-results td {
-  color: rgb(186, 62, 62);
 }
 
 .chart-category-results td:last-child {
@@ -373,11 +468,19 @@ nav {
   transform: scale(1.02);
 }
 .button-login-landing {
-  background-color: var(--primary-background);
-  color: var(--secondary-light);
+  background-color: var(--secondary-light);
+  color: var(--primary-background);
   padding: 10px 30px;
   margin: 20px auto;
 }
+
+.operations-form-button[name='income'] {
+  background-color: var(--positive-color);
+}
+.operations-form-button[name='expense'] {
+  background-color: var(--negative-color);
+}
+
 /** ******************** **/
 /** *****  LOADER   **** **/
 /** ******************** **/
@@ -401,4 +504,20 @@ nav {
 .loading-text {
   color: #f8b062;
   font-weight: 200;
+}
+
+/** ******************** **/
+/** ****  CALENDAR  **** **/
+/** ******************** **/
+
+.breakdown-calendar-wrapper {
+  min-height: 100vh;
+}
+.breakdown-calendar {
+  height: 200px;
+}
+
+.breakdown-header {
+  text-align: center;
+  margin-top: 30px;
 }

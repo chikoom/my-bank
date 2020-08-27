@@ -19,7 +19,6 @@ export class DatePicker extends Component {
         [e.target.name]: e.target.value,
       },
       () => {
-        console.log(this.state)
         this.props.updateTransactions([this.state.from, this.state.until])
       }
     )

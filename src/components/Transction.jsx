@@ -10,11 +10,11 @@ class Transaction extends Component {
   }
   render() {
     const { date, vendor, category, amount } = this.props.details
-    const rowClass = amount >= 0 ? 'positive' : 'negative'
+    const rowClass = amount >= 0 ? 'positive-bg' : 'negative-bg'
 
     return (
       <tr className={rowClass}>
-        <td>{formatDate(date)}</td>
+        <td>{formatDate(date, false)}</td>
         <td>{vendor}</td>
         <td>{category}</td>
         <td>{amount}</td>

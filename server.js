@@ -6,7 +6,7 @@ const path = require('path')
 const cors = require('cors')
 require('dotenv').config()
 
-const { PORT, DB_USER, DB_PASS, DB_NAME } = process.env
+const { PORT, DB_USER, DB_PASS, DB_NAME, CORS_URL } = process.env
 
 mongoose.connect(
   `mongodb+srv://${DB_USER}:${DB_PASS}@bank.gilr7.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,
@@ -20,7 +20,7 @@ mongoose.connect(
 const app = express()
 
 var corsOptions = {
-  origin: 'http://localhost:3001',
+  origin: CORS_URL,
 }
 app.use(cors(corsOptions))
 

@@ -59,7 +59,7 @@ class App extends Component {
             currentUser={this.state.currentUser}
           />
           <div className='app-wrapper'>
-            {this.state.loading && <Loader />}
+            {/* {this.state.loading && <Loader />} */}
             {(this.state.currentUser && (
               <Route
                 exact

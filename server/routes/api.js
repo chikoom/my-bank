@@ -3,7 +3,6 @@ const authJwt = require('./middlewares/authJwt')
 const Transaction = require('../models/Transaction')
 const User = require('../models/User')
 const userQueries = require('./queries/UserQueries')
-const mongoose = require('mongoose')
 
 const apiRouter = express.Router()
 
@@ -34,16 +33,6 @@ apiRouter.post(
 )
 
 apiRouter.get(
-  '/transactions/user/:id',
-  authJwt.verifyToken,
-  async (req, res) => {
-    const { id } = req.params
-    const results = await User.findById(id).populate('expenses')
-    res.send(results.expenses)
-  }
-)
-
-apiRouter.get(
   '/user/transactions/:id',
   authJwt.verifyToken,
   async (req, res) => {
@@ -54,10 +43,6 @@ apiRouter.get(
     res.send(results.expenses)
   }
 )
-
-apiRouter.get('/sanity', (req, res) => {
-  res.send('OK')
-})
 
 apiRouter.get('/user/summary/:id', authJwt.verifyToken, async (req, res) => {
   const { id } = req.params
@@ -89,6 +74,16 @@ apiRouter.get(
   async (req, res) => {
     const { id } = req.params
     const results = await userQueries.userTransactionsByCategory(id)
+    res.send(results)
+  }
+)
+
+apiRouter.get(
+  '/user/transactions/days/:id',
+  authJwt.verifyToken,
+  async (req, res) => {
+    const { id } = req.params
+    const results = await userQueries.userSummaryByDay(id)
     res.send(results)
   }
 )

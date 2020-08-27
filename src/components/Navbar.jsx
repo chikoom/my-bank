@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Drawer from './Drawer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
@@ -17,12 +18,13 @@ class Navbar extends Component {
     })
   }
   render() {
+    const buttonStyle = this.state.drawerOpen ? 'nav-button-open' : ''
     return (
       <React.Fragment>
         <nav>
           <button
             onClick={this.toggleDrawer}
-            className='nav-menu-button app-button'
+            className={`nav-button  ${buttonStyle}`}
           >
             <FontAwesomeIcon icon={faBars} />
           </button>
@@ -38,7 +40,13 @@ class Navbar extends Component {
                 <button onClick={this.props.logoutUser}>Logout</button>
               </div>
             </div>
-          )) || <div className='nav-user-login'>Login</div>}
+          )) || (
+            <div className='nav-usermenu'>
+              <Link to='/login'>
+                <button>Login</button>
+              </Link>
+            </div>
+          )}
         </nav>
         <Drawer
           toggleDrawer={this.toggleDrawer}

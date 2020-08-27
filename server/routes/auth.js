@@ -66,7 +66,6 @@ authRotuer.post('/signin', [], async (req, res) => {
         message: 'Invalid Password!',
       })
     }
-    console.log(SECRET)
     const token = jwt.sign({ id: requestedUser._id }, SECRET, {
       expiresIn: 86400, // 24 hours
     })
@@ -79,7 +78,7 @@ authRotuer.post('/signin', [], async (req, res) => {
       accessToken: token,
     })
   } catch (err) {
-    console.log('error', err)
+    console.error('error', err)
     res.status(500).send({ message: err })
     return
   }

@@ -3,7 +3,7 @@ import authHeader from './auth-header'
 import { API_URL } from './constants'
 
 class UserService {
-  async getUserTransactionsByCategories(user) {
+  getUserTransactionsByCategories = async user => {
     return await axios.get(
       `${API_URL}/user/transactions/categories/${user.id}`,
       {
@@ -12,13 +12,20 @@ class UserService {
     )
   }
 
-  async getUserCategoriesList(user) {
-    return await axios.get(`${API_URL}/user/categories/${user.id}`, {
-      headers: authHeader(),
-    })
+  getUserCategoriesList = async () => {
+    const user = JSON.parse(localStorage.getItem('spendUser'))
+    if (user && user.accessToken) {
+      const response = await axios.get(
+        `${API_URL}/user/categories/${user.id}`,
+        {
+          headers: authHeader(),
+        }
+      )
+      return response.data
+    }
   }
 
-  async getUserCategoriesSummary(user, timeframeArray) {
+  getUserCategoriesSummary = async (user, timeframeArray) => {
     return await axios.get(`${API_URL}/user/categories/summary/${user.id}`, {
       headers: authHeader(),
       params: {
@@ -55,7 +62,7 @@ class UserService {
     }
   }
 
-  async postNewTransaction(submission) {
+  postNewTransaction = async submission => {
     const user = JSON.parse(localStorage.getItem('spendUser'))
     if (user && user.accessToken) {
       const response = await axios.post(
@@ -77,13 +84,26 @@ class UserService {
     return response.data
   }
 
-  async getUserTransactionsForCategoryName(user, categoryName) {
+  getUserTransactionsForCategoryName = async (user, categoryName) => {
     return await axios.get(
       `${API_URL}/user/transactions/categories/${categoryName}/${user.id}`,
       {
         headers: authHeader(),
       }
     )
+  }
+
+  getUserTransactionsDays = async () => {
+    const user = JSON.parse(localStorage.getItem('spendUser'))
+    if (user && user.accessToken) {
+      const response = await axios.get(
+        `${API_URL}/user/transactions/days/${user.id}`,
+        {
+          headers: authHeader(),
+        }
+      )
+      return response.data
+    }
   }
 }
 

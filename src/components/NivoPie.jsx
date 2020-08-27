@@ -3,7 +3,6 @@ import React from 'react'
 
 const MyResponsivePie = props => {
   const handleChartClick = (node, event) => {
-    console.log(node.id)
     props.getUserExpeseByCategoryName(node.id)
   }
   return (
@@ -18,10 +17,11 @@ const MyResponsivePie = props => {
       cornerRadius={6}
       colors={{ scheme: 'pastel2' }}
       borderWidth={1}
+      sortByValue={true}
       borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
       radialLabelsSkipAngle={0}
       radialLabelsTextXOffset={10}
-      radialLabelsTextColor='#333333'
+      radialLabelsTextColor='#FFFFFF'
       radialLabelsLinkOffset={0}
       radialLabelsLinkDiagonalLength={5}
       radialLabelsLinkHorizontalLength={20}
@@ -32,26 +32,6 @@ const MyResponsivePie = props => {
       animate={true}
       motionStiffness={90}
       motionDamping={15}
-      legends={[
-        {
-          anchor: 'bottom',
-          direction: 'row',
-          translateY: 56,
-          itemWidth: 100,
-          itemHeight: 18,
-          itemTextColor: '#999',
-          symbolSize: 18,
-          symbolShape: 'circle',
-          effects: [
-            {
-              on: 'hover',
-              style: {
-                itemTextColor: '#000',
-              },
-            },
-          ],
-        },
-      ]}
     />
   )
 }

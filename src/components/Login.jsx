@@ -71,7 +71,7 @@ class Login extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.loginSuccess && <Redirect to='/transactions' />}
+        {this.state.loginSuccess && <Redirect to='/' />}
         <div className='login-wapper'>
           <form className='login-form'>
             <input
@@ -100,15 +100,33 @@ class Login extends Component {
               value={this.state.password}
               onChange={this.handleInputChange}
             />
-            <button
-              className='signup-login-link'
-              onClick={this.toggleLoginSignup}
-            >
-              {(this.state.isLogin && 'Signup') || 'Login'}
-            </button>
-            <button onClick={this.handleSubmit} className='app-button'>
-              {(this.state.isLogin && 'Login') || 'Signup'}
-            </button>
+
+            {(this.state.isLogin && (
+              <div className='login-form-buttons'>
+                <button className='app-button' onClick={this.toggleLoginSignup}>
+                  Signup
+                </button>
+                <button
+                  className='signup-login-link'
+                  onClick={this.handleSubmit}
+                >
+                  Login
+                </button>
+              </div>
+            )) || (
+              <div className='login-form-buttons'>
+                <button
+                  className='signup-login-link'
+                  onClick={this.handleSubmit}
+                >
+                  Signup
+                </button>
+                <button onClick={this.toggleLoginSignup} className='app-button'>
+                  Login
+                </button>
+              </div>
+            )}
+            <div className='login-form-msg'></div>
           </form>
         </div>
       </React.Fragment>

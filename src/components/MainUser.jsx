@@ -49,7 +49,6 @@ class MainUser extends Component {
         user,
         getThisMonthTimeFrame()
       )
-      console.log(response.data)
       return response.data
     }
   }
@@ -60,7 +59,6 @@ class MainUser extends Component {
         user,
         categoryName
       )
-      console.log(response.data)
       this.setState({
         categoryTransactions: response.data.transactions,
       })
@@ -74,7 +72,6 @@ class MainUser extends Component {
         user,
         getThisMonthTimeFrame()
       )
-      console.log(response.data)
       return response.data
     }
   }
@@ -91,6 +88,9 @@ class MainUser extends Component {
           <Wave />
           {this.state.pieData && (
             <div className='chart-container'>
+              <h2 className='chart-container-header'>
+                Your expenses this month
+              </h2>
               <NivoPie
                 getUserExpeseByCategoryName={this.getUserExpeseByCategoryName}
                 data={this.state.pieData}

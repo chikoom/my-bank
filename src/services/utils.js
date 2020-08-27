@@ -1,10 +1,10 @@
 import React from 'react'
-export const formatDate = unformatedDate => {
+export const formatDate = (unformatedDate, includeYear = true) => {
   const dateObject = new Date(unformatedDate)
-  return `${dateObject.getFullYear()}-${(
-    '0' +
-    (dateObject.getMonth() + 1)
-  ).slice(-2)}-${('0' + dateObject.getDate()).slice(-2)}`
+  const year = includeYear ? `${dateObject.getFullYear()}-` : ''
+  const month = `${('0' + (dateObject.getMonth() + 1)).slice(-2)}-`
+  const day = `${('0' + dateObject.getDate()).slice(-2)}`
+  return year + month + day
 }
 
 export const getThisMonthTimeFrame = () => {
