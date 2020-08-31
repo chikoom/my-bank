@@ -1,0 +1,520 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+  --primary-background: #1e34c6;
+  --secondary-background: #153b61;
+  --primary-color: #2248a0;
+  --secondary-light: #80b1e2;
+  --primary-shadow: 0px 1px 5px rgba(0, 0, 0, 0.367);
+  --button-color: #fff;
+  --text-primary-color: #333;
+  --text-light: rgb(255, 255, 255);
+  --text-primarySize: 15px;
+  --text-primaryWeight: 200;
+  --text-LargeSize: 17px;
+  --text-LargeWeight: 200;
+  --text-primarySize: 15px;
+  --text-primaryWeight: 200;
+  --text-smallSize: 13px;
+  --text-smallWeight: 200;
+  --positive-color: rgb(186, 233, 148);
+  --negative-color: rgb(213, 101, 101);
+}
+
+.dark-gradient {
+  background: rgb(9, 9, 121);
+  background: linear-gradient(
+    180deg,
+    rgba(9, 9, 121, 1) 11%,
+    rgba(134, 19, 191, 1) 100%
+  );
+}
+.light-gradient {
+  background: rgb(31, 255, 226);
+  background: linear-gradient(180deg, rgb(1, 2, 15) 0%, rgb(10, 10, 49) 100%);
+}
+.small {
+  font-size: 15px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-family: 'Kanit', sans-serif;
+}
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+#root {
+  min-height: 100vh;
+}
+a {
+  text-decoration: none;
+}
+.app {
+  overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+.app-wrapper {
+  position: relative;
+}
+/** ******************** **/
+/** *****  LANDING  **** **/
+/** ******************** **/
+#landing-wrapper {
+  min-height: 100vh;
+  padding-bottom: 150px;
+  position: relative;
+  z-index: 11;
+}
+#landing-top {
+  background-color: var(--secondary-background);
+  z-index: 1111;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  height: 40vh;
+  width: 100%;
+}
+#landing-inner {
+  max-width: 300px;
+}
+.landing-logo {
+  font-size: 80px;
+  color: var(--text-light);
+  border-bottom: 5px solid var(--text-light);
+}
+.landing-slogen {
+  color: var(--text-light);
+  font-size: 18px;
+  font-weight: 200;
+}
+/** ******************** **/
+/** ***  BACKGROUND  *** **/
+/** ******************** **/
+.wave-bg {
+  width: 105%;
+  margin: -10px auto 0 -2%;
+  z-index: -1;
+  position: relative;
+}
+.wave-bg path {
+  fill: var(--secondary-background);
+  stroke: #c93792;
+  stroke-width: 5px;
+  position: relative;
+}
+
+/** ******************** **/
+/** *****  NAV BAR  **** **/
+/** ******************** **/
+nav {
+  background-color: var(--primary-color);
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  padding: 20px;
+  box-shadow: var(--primary-shadow);
+}
+.nav-menu-button {
+  color: var(--button-color);
+  font-size: 20px;
+  outline: none;
+  text-decoration: none;
+}
+.nav-button {
+  color: var(--button-color);
+  font-size: 20px;
+  outline: none;
+  transition: 0.5s;
+  background: none;
+  cursor: pointer;
+}
+.nav-button:focus {
+  outline: none;
+  border: none;
+}
+.nav-button-open {
+  transform: rotate(90deg);
+}
+
+.nav-logo {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 25px;
+  font-weight: 300;
+  font-style: italic;
+}
+.nav-user-login {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  text-align: right;
+}
+.nav-user-container {
+  text-align: center;
+}
+.nav-username {
+  color: var(--text-light);
+  font-size: 17px;
+}
+
+.nav-usermenu button {
+  background: none;
+  text-align: center;
+  color: var(--secondary-light);
+}
+.nav-usermenu button:hover {
+  text-decoration: underline;
+}
+.nav-usermenu button:focus {
+  text-decoration: underline;
+  outline: none;
+  border: none;
+}
+.nac-user-container {
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  grid-gap: 10px;
+  align-content: center;
+  justify-content: center;
+}
+/** ******************** **/
+/** *****  LOGIN   ***** **/
+/** ******************** **/
+.login-form {
+  max-width: 500px;
+  margin: 50px auto;
+}
+.login-form-buttons {
+  margin: 20px auto;
+  text-align: center;
+}
+.login-form-buttons button {
+  margin: 0 10px;
+  text-align: center;
+}
+.signup-login-link {
+  background-color: var(--primary-color);
+  color: var(--secondary-light);
+  padding: 10px 20px;
+}
+.signup-login-link:hover {
+  transform: scale(1.05);
+}
+/** ******************** **/
+/** *****  DRAWER  ***** **/
+/** ******************** **/
+
+.drawer {
+  width: 250px;
+  height: 100%;
+  background-color: var(--secondary-light);
+  transition: ease-in-out 0.5s;
+  position: absolute;
+  top: 77px;
+  left: 0px;
+  z-index: 99999999;
+}
+.drawer-button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  justify-content: center;
+  align-content: center;
+  text-align: left;
+  cursor: pointer;
+  padding: 15px 0;
+  background: none;
+}
+.drawer-button:hover {
+  background-color: var(--primary-color);
+}
+.drawer-button:focus {
+  outline: none;
+}
+.button-drawer-text {
+  border-left: 2px solid var(--text-light);
+  padding-left: 20px;
+  text-decoration: none;
+}
+.drawer-button-icon {
+  align-self: center;
+  justify-self: center;
+}
+
+/** ******************** **/
+/** **  TRANSACTIONS  ** **/
+/** ******************** **/
+
+.transactions-table-wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.transactions-table {
+  width: 100%;
+  margin: 0 auto;
+  text-align: left;
+}
+.transactions-table thead th {
+  text-align: center;
+  font-size: var(--text-smallSize);
+  font-weight: var(--text-primaryWeight);
+}
+.transactions-table tbody {
+  font-size: var(--text-primarySize);
+  font-weight: var(--text-primaryWeight);
+}
+.transactions-table td,
+.transactions-table th {
+  padding: 10px;
+}
+.transactions-table tr td:first-child {
+  min-width: 100px;
+}
+.transactions-table tr td:last-child {
+  width: 50px;
+}
+.positive {
+  color: var(--positive-color);
+}
+.negative {
+  color: var(--negative-color);
+}
+.positive-bg {
+  background-color: var(--positive-color);
+  color: #000;
+}
+.negative-bg {
+  background-color: var(--negative-color);
+  color: #fff;
+}
+
+/** ******************** **/
+/** *** USER SUMMARY *** **/
+/** ******************** **/
+
+.user-summary {
+  display: grid;
+  grid-template-areas:
+    'ba ba'
+    'tl tl'
+    'in ex';
+  color: var(--secondary-light);
+  grid-gap: 20px;
+}
+
+.user-summary-total {
+  grid-area: ba;
+}
+.user-summary-total .user-summary-header {
+  font-size: 20px;
+  font-weight: 100;
+}
+.user-summary-total .user-summary-amount {
+  font-size: 60px;
+  font-weight: 200;
+}
+.user-summary-income {
+  grid-area: in;
+  color: rgb(195, 233, 174);
+  margin-right: 20px;
+  text-align: center;
+}
+.user-summary-expences {
+  grid-area: ex;
+  color: rgb(235, 128, 128);
+  margin-left: 20px;
+  text-align: center;
+}
+.user-summary-income .user-summary-header,
+.user-summary-expences .user-summary-header {
+  font-size: 15px;
+  font-weight: 100;
+}
+.user-summary-income .user-summary-amount,
+.user-summary-expences .user-summary-amount {
+  font-size: 40px;
+  font-weight: 200;
+}
+.user-summary-title {
+  grid-area: tl;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+/** ******************** **/
+/** ******  CHART  ********/
+/** ******************** **/
+
+.chart-container {
+  height: 500px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.chart-container-header {
+  color: var(--secondary-light);
+  font-weight: 200;
+  text-align: center;
+}
+.chart-container svg {
+  cursor: pointer;
+}
+
+.chart-category-results {
+  width: 300px;
+  margin: 0 auto;
+  background-color: #fff;
+  font-size: 12px;
+  padding: 10px;
+  box-shadow: 1px 1px 5px rgb(13, 8, 74);
+}
+
+.chart-category-results td:last-child {
+  display: none;
+}
+
+/** ******************** **/
+/** ***  DATEPICKER  *** **/
+/** ******************** **/
+
+.datepicker-wrapper {
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  text-align: center;
+  margin-top: 20px;
+}
+.datepicker {
+  font-size: 13px;
+}
+.datepicker label {
+  font-size: 10px;
+}
+.datepicker input {
+  margin-left: 10px;
+  width: 140px;
+  background-color: none;
+}
+
+::-webkit-datetime-edit {
+  padding: 1em;
+}
+
+::-webkit-datetime-edit-text {
+  padding: 0 0.3em;
+}
+::-webkit-calendar-picker-indicator {
+  margin-left: -100px;
+}
+/** ******************** **/
+/** ***  OPERATIONS  *** **/
+/** ******************** **/
+.operations-form {
+  margin: 0 auto;
+  width: 300px;
+}
+.operations-form-input {
+  box-shadow: var(--primary-shadow);
+  width: 95%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+.input-wrapper {
+  position: relative;
+  margin-top: 10px;
+}
+.operations-form-buttons {
+  margin: 20px auto;
+  text-align: center;
+  width: 95%;
+}
+.operations-form-button {
+  width: 45%;
+  height: 50px;
+  margin: 2%;
+  font-size: var(--text-LargeSize);
+  cursor: pointer;
+}
+/** ******************** **/
+/** *****  BUTTONS  **** **/
+/** ******************** **/
+.general-input {
+  box-shadow: var(--primary-shadow);
+  width: 95%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+/** ******************** **/
+/** *****  BUTTONS  **** **/
+/** ******************** **/
+.app-button {
+  background: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.app-button:hover {
+  transform: scale(1.02);
+}
+.button-login-landing {
+  background-color: var(--secondary-light);
+  color: var(--primary-background);
+  padding: 10px 30px;
+  margin: 20px auto;
+}
+
+.operations-form-button[name='income'] {
+  background-color: var(--positive-color);
+}
+.operations-form-button[name='expense'] {
+  background-color: var(--negative-color);
+}
+
+/** ******************** **/
+/** *****  LOADER   **** **/
+/** ******************** **/
+
+.loader-wrapper {
+  z-index: 99999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.loader-inner {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  text-align: center;
+  margin-top: 250px;
+}
+.loading-text {
+  color: #f8b062;
+  font-weight: 200;
+}
+
+/** ******************** **/
+/** ****  CALENDAR  **** **/
+/** ******************** **/
+
+.breakdown-calendar-wrapper {
+  min-height: 100vh;
+}
+.breakdown-calendar {
+  height: 200px;
+}
+
+.breakdown-header {
+  text-align: center;
+  margin-top: 30px;
+}
